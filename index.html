@@ -14,8 +14,68 @@
 </style>
 </head>
 <body>
-    <!-- DO NOT MODIFY THIS HTML -->
-    <canvas id = "myCanvas" width = "350" height = "500"  ></canvas>
-    <input type = "color" id = "picker"/>
+
+  <!-- DO NOT MODIFY THIS HTML -->
+  <canvas id = "myCanvas" width = "350" height = "500"  ></canvas>
+  <input type = "color" id = "picker"/>
+
+  <script>
+    var canvas = document.getElementById('myCanvas');
+    var ctx = canvas.getContext("2d");
+    var color = "red";
+    var drawing = true;
+
+    canvas.width = window.innerWidth * .8;
+    canvas.height = window.innerHeight * .8;
+
+    document.addEventListener("keydown", function(event) {
+      if (event.keyCode == "82"){
+        color = "red";
+      }
+      else if (event.keyCode == "71"){
+        color = "green";
+      }
+      else if (event.keyCode == "66"){
+        color = "blue";
+      }
+      else if (event.keyCode == "89"){
+        color = "yellow";
+      }
+      else if (event.keyCode == "32"){
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+      else if (event.keyCode == "38"){
+        drawing = false;
+      }
+      else if (event.keyCode == "40"){
+        drawing = true;
+      }
+      console.log(color);
+    }, false);
+
+    document.getElementById("picker").addEventListener("change", colorPicker);
+
+    function colorPicker() {
+      color = document.getElementById("picker").value;
+    }
+
+    canvas.addEventListener("mousemove", function(event) {
+      x = event.clientX - 14;
+      y = event.clientY - 14;
+      if (drawing) {
+        draw(x, y, color);
+      }
+    }, false);
+
+    function draw(x, y, color) {
+      ctx.beginPath();
+      ctx.arc(x, y, 5, 0, 2 * Math.PI);
+      ctx.fillStyle = color;
+      ctx.fill();
+      console.log(document.getElementById("picker").value);
+    }
+
+  </script>
+
 </body>
 </html>
